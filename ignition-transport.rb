@@ -32,7 +32,7 @@ class IgnitionTransport < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<-EOS
+    (testpath/"test.cpp").write <<-EOS.undent
       #include <iostream>
       #include <ignition/transport.hh>
       int main() {

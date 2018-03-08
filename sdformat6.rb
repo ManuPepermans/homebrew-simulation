@@ -1,17 +1,11 @@
 class Sdformat6 < Formula
   desc "Simulation Description Format"
   homepage "http://sdformat.org"
-  url "http://gazebosim.org/distributions/sdformat/releases/sdformat-6.0.0.tar.bz2"
-  sha256 "93ea8007e9d92c87f99240e378231977fb1de2072fd752449f65917cb430bc4d"
+  url "https://bitbucket.org/osrf/sdformat/get/345e5afa7edd7697c990cc3f57e9abf50a0b3dd4.tar.gz"
+  version "5.99.99~20171117~345e5af"
+  sha256 "cfe8ca8b14bb9fdc7bd1219cd42adbde44df2b5bfc07e52474752f05970595d7"
 
   head "https://bitbucket.org/osrf/sdformat", :branch => "default", :using => :hg
-
-  bottle do
-    root_url "http://gazebosim.org/distributions/sdformat/releases"
-    sha256 "7209872eecf22ff4628a68da52c91368798b5bc9078ef7017a4da2fe920a4f45" => :high_sierra
-    sha256 "8d5dc686260387f5d9b7388c392f7345b61594cc030e9cf971360d0429882193" => :sierra
-    sha256 "a43f6c6edc8e4b6fdde75eabbe52fac4b75e5ec18e2ac4b5e7e3efa5c65cd89e" => :el_capitan
-  end
 
   depends_on "cmake" => :build
 
@@ -41,7 +35,7 @@ class Sdformat6 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<-EOS
+    (testpath/"test.cpp").write <<-EOS.undent
       #include <iostream>
       #include "sdf/sdf.hh"
       const std::string sdfString(
