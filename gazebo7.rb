@@ -3,6 +3,7 @@ class Gazebo7 < Formula
   homepage "http://gazebosim.org"
   url "http://gazebosim.org/distributions/gazebo/releases/gazebo-7.9.0.tar.bz2"
   sha256 "c401426ea0112a4342aae916e718b6294f39920b75b0dbecb5fffd4605799d37"
+  revision 1
 
   head "https://bitbucket.org/osrf/gazebo", :branch => "gazebo7", :using => :hg
 
@@ -33,7 +34,7 @@ class Gazebo7 < Formula
 
   depends_on "bullet" => :recommended
   depends_on "dartsim/dart/dartsim4" => :optional
-  depends_on "ffmpeg" => :optional
+  depends_on "ffmpeg" => :recommended
   depends_on "gdal" => :optional
   depends_on "gts" => :recommended
   depends_on "player" => :optional
@@ -51,7 +52,7 @@ class Gazebo7 < Formula
     url "https://gist.githubusercontent.com/scpeters/9199370/raw/afe595587e38737c537124a3652db99de026c272/brew_python_fix.patch"
     sha256 "c4774f64c490fa03236564312bd24a8630963762e25d98d072e747f0412df18e"
   end
-  
+
   patch do
     # tinyxml2 6.0.0 API
     url "https://bitbucket.org/osrf/gazebo/commits/5926e42bd5207ff35e55b72065dd1c967298b8e3/raw/"
