@@ -1,18 +1,17 @@
 class IgnitionMath4 < Formula
   desc "Math API for robotic applications"
   homepage "https://ignitionrobotics.org"
-  url "http://gazebosim.org/distributions/ign-math/releases/ignition-math4-4.0.0~pre3.tar.bz2"
-  version "4.0.0~pre3"
-  sha256 "06fe8754b2a0889f810f9e4b7370eb137ab6ba72af716e52b300eaedda4fbdf5"
+  url "http://gazebosim.org/distributions/ign-math/releases/ignition-math4-4.0.0.tar.bz2"
+  sha256 "5533d1aca0a87450a6ec4770e489bfe24860e6da843b005e594be264c2d6faa0"
 
   head "https://bitbucket.org/ignitionrobotics/ign-math", :branch => "default", :using => :hg
 
   bottle do
     root_url "http://gazebosim.org/distributions/ign-math/releases"
     cellar :any
-    sha256 "32edf1c428c5cd00792e67197c45f163f775d9fa839ad35fdf03bc44098906b7" => :high_sierra
-    sha256 "6953828de80679db88ec3b280d711e10d75497fa95d3509b1a85ae710d8a66d3" => :sierra
-    sha256 "3f767bf6b74f0219133b4a5b1c3cd330e4147fe87443bda35c7dd7866de50dfa" => :el_capitan
+    sha256 "0a012fad519f0e726f6090c5b7e4fef128a8b66c346109f392f8109f37a14af2" => :high_sierra
+    sha256 "a2152c21135fc7e7d887ecfbdf0cb17e612780a6088e5c81c639bdcaaf529fdd" => :sierra
+    sha256 "e7c3f313b025c4733bd79cb3a27f54846e910e11c34e12d78e1c054eb06bbd48" => :el_capitan
   end
 
   depends_on "cmake" => :build
@@ -20,7 +19,6 @@ class IgnitionMath4 < Formula
   depends_on "ignition-cmake0"
 
   conflicts_with "ignition-math2", :because => "Symbols collision between the two libraries"
-  conflicts_with "ignition-math3", :because => "Symbols collision between the two libraries"
 
   def install
     system "cmake", ".", *std_cmake_args
@@ -28,7 +26,7 @@ class IgnitionMath4 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<-EOS.undent
+    (testpath/"test.cpp").write <<-EOS
       #include "ignition/math/SignalStats.hh"
       int main() {
         ignition::math::SignalMean mean;
@@ -37,11 +35,11 @@ class IgnitionMath4 < Formula
         return static_cast<int>(mean.Value());
       }
     EOS
-    (testpath/"CMakeLists.txt").write <<-EOS.undent
+    (testpath/"CMakeLists.txt").write <<-EOS
       cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
       find_package(ignition-math4 QUIET REQUIRED)
       add_executable(test_cmake test.cpp)
-      target_link_libraries(test_cmake ${IGNITION-MATH_LIBRARIES})
+      target_link_libraries(test_cmake ignition-math4::ignition-math4)
     EOS
     # test building with manual compiler flags
     system ENV.cc, "test.cpp",

@@ -1,4 +1,4 @@
-class IgnitionSensors < Formula
+class IgnitionSensors0 < Formula
   desc "Sensors library for robotics applications"
   homepage "https://bitbucket.org/ignitionrobotics/ign-sensors"
   url "https://bitbucket.org/ignitionrobotics/ign-sensors/get/d87cd152c6415be98c07b2daa2e86fd4978c894e.tar.gz"
@@ -9,10 +9,10 @@ class IgnitionSensors < Formula
 
   depends_on "cmake" => :build
 
-  depends_on "ignition-common0"
+  depends_on "ignition-common1"
   depends_on "ignition-math4"
   depends_on "ignition-msgs1"
-  depends_on "ignition-rendering"
+  depends_on "ignition-rendering0"
   depends_on "ignition-transport4"
   depends_on "sdformat6"
 
@@ -24,7 +24,7 @@ class IgnitionSensors < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<-EOS.undent
+    (testpath/"test.cpp").write <<-EOS
       #include <iostream>
 
       #include <ignition/rendering.hh>

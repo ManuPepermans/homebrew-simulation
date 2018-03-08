@@ -1,17 +1,16 @@
-class IgnitionCommon0 < Formula
+class IgnitionCommon1 < Formula
   desc "Common libraries for robotics applications"
   homepage "https://bitbucket.org/ignitionrobotics/ign-common"
-  url "http://gazebosim.org/distributions/ign-common/releases/ignition-common-0.5.0~pre4.tar.bz2"
-  version "0.5.0~pre4"
-  sha256 "4e9c5507a2f480a2e2dc8dd2aaa22e91905791f87745e69f918ab67304ef39a7"
+  url "http://gazebosim.org/distributions/ign-common/releases/ignition-common-1.0.1.tar.bz2"
+  sha256 "fb56178cda1860cbab0c29d93b46a3e0c275cb400383c6e7c5b99e4ae5b1375a"
 
   head "https://bitbucket.org/ignitionrobotics/ign-common", :branch => "default", :using => :hg
 
   bottle do
     root_url "http://gazebosim.org/distributions/ign-common/releases"
-    sha256 "8cf5a38360434a8104556a8ddca664d082fdcae8131c299e2b5f799a22df6c0c" => :high_sierra
-    sha256 "2057e1398a4e8c6fcfdac2a347b24db544203fef5edcf51fa346a27ee7a9ea02" => :sierra
-    sha256 "a5c7d9df58fb64cf0e5dbcea5cb94084bc7be0c9bf36242927b14b82c591c6fe" => :el_capitan
+    sha256 "2c70508307e03366d12c9b1dfbc4eae2ffef19182fc6831d41ad055eba7eb80e" => :high_sierra
+    sha256 "286133a582afd5cefe6d80a9618969af9592e5e5f1613e7c267e289dd66675db" => :sierra
+    sha256 "c950430520481fef1818c636b8f1eb25f2bd1033635c6b5073b8c1d0775321af" => :el_capitan
   end
 
   depends_on "ffmpeg"
@@ -50,16 +49,16 @@ class IgnitionCommon0 < Formula
     EOS
     (testpath/"CMakeLists.txt").write <<-EOS
       cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-      find_package(ignition-common0 QUIET REQUIRED)
+      find_package(ignition-common1 QUIET REQUIRED)
       add_executable(test_cmake test.cpp)
       target_link_libraries(test_cmake ${IGNITION-COMMON_LIBRARIES})
     EOS
-    system "pkg-config", "ignition-common0"
-    cflags = `pkg-config --cflags ignition-common0`.split(" ")
+    system "pkg-config", "ignition-common1"
+    cflags = `pkg-config --cflags ignition-common1`.split(" ")
     system ENV.cc, "test.cpp",
                    *cflags,
                    "-L#{lib}",
-                   "-lignition-common0",
+                   "-lignition-common1",
                    "-lc++",
                    "-o", "test"
     system "./test"

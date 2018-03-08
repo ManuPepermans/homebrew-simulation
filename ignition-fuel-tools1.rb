@@ -1,9 +1,17 @@
-class IgnitionFuelTools0 < Formula
+class IgnitionFuelTools1 < Formula
   desc "Tools for using fuel API to download robot models"
   homepage "https://ignitionrobotics.org"
-  url "https://bitbucket.org/ignitionrobotics/ign-fuel-tools/get/4bf08a71cb16298c130b6f0f060bd42f5fcf99ae.tar.gz"
-  version "0.1.3~20180108~4bf08a71cb"
-  sha256 "68f375a2cf2bb6adfa4ecd801b822f0d475af5df5efa41182374adc02f769da1"
+  url "http://gazebosim.org/distributions/ign-fuel-tools/releases/ignition-fuel_tools-1.0.0.tar.bz2"
+  sha256 "4266ff5a16db23deffe24a792901c7a28272c198ae9e484b9ec8b2bf6905b5cd"
+  version_scheme 1
+  revision 1
+
+  bottle do
+    root_url "http://gazebosim.org/distributions/ign-fuel-tools/releases"
+    sha256 "3f5676a7a90f132faa4a19c043abbe59bef1b49c89f1e002b0cb62be1fe6121e" => :high_sierra
+    sha256 "180a49a2f9af22febea099c29320e2b1a63491d13e0170dd7e9f73f89f680a97" => :sierra
+    sha256 "4dd898a076147a1fa2face910f69b64993d56bc3527c1506a15dbfd9a5353805" => :el_capitan
+  end
 
   depends_on "cmake" => :run
   depends_on "ignition-cmake0"
@@ -22,7 +30,7 @@ class IgnitionFuelTools0 < Formula
 
   test do
     (testpath/"test.cpp").write <<-EOS
-      #include <ignition/fuel-tools.hh>
+      #include <ignition/fuel_tools.hh>
       int main() {
         ignition::fuel_tools::ServerConfig srv;
         return 0;
@@ -30,19 +38,19 @@ class IgnitionFuelTools0 < Formula
     EOS
     (testpath/"CMakeLists.txt").write <<-EOS
       cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-      find_package(ignition-fuel-tools0 QUIET REQUIRED)
-      include_directories(${IGNITION-FUEL-TOOLS_INCLUDE_DIRS})
-      link_directories(${IGNITION-FUEL-TOOLS_LIBRARY_DIRS})
+      find_package(ignition-fuel_tools1 QUIET REQUIRED)
+      include_directories(${IGNITION-FUEL_TOOLS_INCLUDE_DIRS})
+      link_directories(${IGNITION-FUEL_TOOLS_LIBRARY_DIRS})
       add_executable(test_cmake test.cpp)
-      target_link_libraries(test_cmake ${IGNITION-FUEL-TOOLS_LIBRARIES})
+      target_link_libraries(test_cmake ignition-fuel_tools1::ignition-fuel_tools1)
     EOS
     # test building with pkg-config
-    system "pkg-config", "ignition-fuel-tools0"
-    cflags = `pkg-config --cflags ignition-fuel-tools0`.split(" ")
+    system "pkg-config", "ignition-fuel_tools1"
+    cflags = `pkg-config --cflags ignition-fuel_tools1`.split(" ")
     system ENV.cc, "test.cpp",
                    *cflags,
                    "-L#{lib}",
-                   "-lignition-fuel-tools0",
+                   "-lignition-fuel_tools1",
                    "-lc++",
                    "-o", "test"
     system "./test"
