@@ -51,6 +51,12 @@ class Gazebo7 < Formula
     url "https://gist.githubusercontent.com/scpeters/9199370/raw/afe595587e38737c537124a3652db99de026c272/brew_python_fix.patch"
     sha256 "c4774f64c490fa03236564312bd24a8630963762e25d98d072e747f0412df18e"
   end
+  
+  patch do
+    # tinyxml2 6.0.0 API
+    url "https://bitbucket.org/osrf/gazebo/commits/5926e42bd5207ff35e55b72065dd1c967298b8e3/raw/"
+    sha256 "1339f63a7235d063aee66fab2586e4aab8caee3d9192847412908511f8c9ffa5"
+  end
 
   def install
     ENV.m64
